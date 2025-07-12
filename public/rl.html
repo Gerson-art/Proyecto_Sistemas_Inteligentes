@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Reinforcement Learning</title>
+  <link rel="stylesheet" href="/css/rl.css">
+  <script src="/js/rl.js" defer></script>
+</head>
+
+<body>
+  <section id="reinforcement-learning">
+    <div class="section-header">
+      <h1>Reinforcement Learning</h1>
+      <div class="subtitle">Aprendizaje por Refuerzo: agente, entorno, política y recompensas</div>
+    </div>
+    
+    <div class="card fundamentos">
+  <h2><span class="icon">🤖</span> Fundamentos del Aprendizaje por Refuerzo</h2>
+  <div class="content">
+    <p>
+      El <strong>Aprendizaje por Refuerzo</strong> (RL) es una técnica donde un <strong>agente</strong> aprende a tomar
+      decisiones óptimas interactuando con un <strong>entorno</strong>. A diferencia del aprendizaje supervisado,
+      no recibe respuestas correctas, sino que descubre estrategias mediante <span class="highlight">recompensas</span>.
+    </p>
+  </div>
+</div>
+
+<div class="card conceptos-clave">
+  <h2><span class="icon">📘</span> Conceptos Clave</h2>
+  <div class="content grid-conceptos">
+    <div class="concepto-item">
+      <div class="concepto-icon">🧑‍💻</div>
+      <div>
+        <h3>Agente</h3>
+        <p>Quien toma decisiones y aprende para maximizar recompensas.</p>
+      </div>
+    </div>
+    <div class="concepto-item">
+      <div class="concepto-icon">🌍</div>
+      <div>
+        <h3>Entorno</h3>
+        <p>El mundo con el que interactúa el agente.</p>
+      </div>
+    </div>
+    <div class="concepto-item">
+      <div class="concepto-icon">📊</div>
+      <div>
+        <h3>Estado</h3>
+        <p>Representación del entorno en un momento dado.</p>
+      </div>
+    </div>
+    <div class="concepto-item">
+      <div class="concepto-icon">🎯</div>
+      <div>
+        <h3>Acción</h3>
+        <p>Elección que hace el agente en cada estado.</p>
+      </div>
+    </div>
+    <div class="concepto-item">
+      <div class="concepto-icon">🏆</div>
+      <div>
+        <h3>Recompensa</h3>
+        <p>Valor que indica qué tan buena fue una acción.</p>
+      </div>
+    </div>
+    <div class="concepto-item">
+      <div class="concepto-icon">📜</div>
+      <div>
+        <h3>Política</h3>
+        <p>Estrategia que define qué acción tomar en cada estado.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card ciclo-aprendizaje">
+  <h2><span class="icon">🔁</span> Ciclo de Aprendizaje</h2>
+  <div class="content steps-visual">
+    <div class="step">
+      <div class="step-number">1</div>
+      <div class="step-content">
+        <strong>Observa</strong> su <em>estado</em> actual.
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-number">2</div>
+      <div class="step-content">
+        <strong>Toma</strong> una <em>acción</em> basada en su política.
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-number">3</div>
+      <div class="step-content">
+        <strong>Recibe</strong> una <em>recompensa</em> del entorno.
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-number">4</div>
+      <div class="step-content">
+        <strong>Observa</strong> el <em>nuevo estado</em> y ajusta su estrategia.
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div class="card">
+      <h2><span class="icon">⚖️</span>Exploración vs Explotación</h2>
+      <div class="content">
+        <p>El agente debe equilibrar:</p>
+        <ul class="steps">
+          <li><strong>Exploración:</strong> Probar nuevas acciones para descubrir recompensas mejores.</li>
+          <li><strong>Explotación:</strong> Elegir las acciones que ya conoce como efectivas.</li>
+        </ul>
+        <p>Esto se gestiona comúnmente con un parámetro <code>ε</code> (epsilon) que determina la probabilidad de
+          explorar.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2><span class="icon">🌍</span>Aplicaciones Comunes</h2>
+      <div class="content">
+        <ul class="steps">
+          <li>Robótica autónoma</li>
+          <li>Juegos (ajedrez, Go, videojuegos)</li>
+          <li>Optimización de sistemas de recomendación</li>
+          <li>Gestión energética y control de tráfico</li>
+        </ul>
+      </div>
+    </div>
+    <!-- Agrega esto dentro de <section id="reinforcement-learning"> -->
+    <div class="card">
+      <h2><span class="icon">🎮</span> Laberinto Interactivo (Q-Learning)</h2>
+      <div class="content">
+        <div id="maze-container">
+          <canvas id="maze-canvas" width="400" height="400"></canvas>
+          <div class="controls">
+            <label>Exploración (ε): <input type="range" id="epsilon" min="0" max="1" step="0.1" value="0.1"></label>
+            <button id="train-btn">Entrenar Agente</button>
+            <button id="reset-btn">Reiniciar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="feedback-container">
+      <div class="feedback-card">
+        <div class="feedback-header">
+          <h3>Progreso del Entrenamiento</h3>
+          <div class="status-indicator" id="training-status"></div>
+        </div>
+
+        <div class="feedback-metrics">
+          <div class="metric">
+            <div class="metric-label">Episodio</div>
+            <div class="metric-value" id="episode-counter">0</div>
+          </div>
+
+          <div class="metric">
+            <div class="metric-label">Pasos</div>
+            <div class="metric-value" id="step-counter">0</div>
+            <div class="metric-description">en este episodio</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2><span class="icon">💻</span> Implementación con Q-Learning</h2>
+      <div class="content">
+        <pre><code class="language-javascript">// 1. Definir entorno (matriz)
+const maze = [
+  [0, 0, 1, 2],
+  [1, 0, 1, 0],
+  [0, 0, 0, 0]
+];
+
+// 2. Inicializar tabla Q (estado-acción)
+let Q = {};
+
+// 3. Función para elegir acción (ε-greedy)
+function chooseAction(state) {
+  if (Math.random() < epsilon) return randomAction();
+  return bestAction(Q[state]);
+}</code></pre>
+        <p>El agente explora aleatoriamente con probabilidad ε, de lo contrario, elige la mejor acción conocida.</p>
+      </div>
+    </div>
+  </section>
+  <footer class="section-footer">
+    <div class="container">
+      <nav>
+        <a href="/" class="btn outline">← Volver a la Portada</a>
+        <a href="/arboles.html" class="btn">Árbol de decisión →</a>
+      </nav>
+    </div>
+  </footer>
+
+</body>
+
+</html>

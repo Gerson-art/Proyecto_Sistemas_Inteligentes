@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Árboles de Decisión | Machine Learning Didáctico</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/arboles.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Montserrat:wght@600&display=swap"
+        rel="stylesheet">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="/js/arboles.js" defer></script>
+</head>
+
+<body>
+    <header class="section-header">
+        <div class="container">
+            <h1>Árboles de Decisión</h1>
+            <p class="subtitle">Modelos predictivos basados en reglas de decisión</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="card teoria-decision">
+            <h2>¿Qué es un Árbol de Decisión?</h2>
+            <div class="caracteristicas">
+                <p class="descripcion">
+                    Un árbol de decisión es un modelo de Machine Learning que toma decisiones dividiendo los datos de
+                    forma jerárquica. Se representa como una estructura similar a un árbol donde cada parte cumple una
+                    función específica:
+                </p>
+
+                <div class="caracteristica item-nodo">
+                    <div class="icono-caracteristica"></div>
+                    <div class="contenido">
+                        <h3>Nodo</h3>
+                        <p>Representa una pregunta o condición sobre una característica del conjunto de datos.</p>
+                    </div>
+                </div>
+
+                <div class="caracteristica item-rama">
+                    <div class="icono-caracteristica"></div>
+                    <div class="contenido">
+                        <h3>Rama</h3>
+                        <p>Conecta nodos y representa el resultado de una decisión o condición.</p>
+                    </div>
+                </div>
+
+                <div class="caracteristica item-hoja">
+                    <div class="icono-caracteristica"></div>
+                    <div class="contenido">
+                        <h3>Hoja</h3>
+                        <p>Es el punto final del árbol, indicando una decisión final o una clasificación.</p>
+                    </div>
+                </div>
+
+                <p class="descripcion-final">
+                    El árbol se construye dividiendo los datos en subconjuntos más homogéneos utilizando algoritmos como
+                    <strong>ID3</strong>, <strong>C4.5</strong> o <strong>CART</strong>.
+                </p>
+            </div>
+        </section>
+
+
+        <section class="card interactivo">
+            <h2><span class="icon">🔍</span> Visualización Interactiva</h2>
+            <div class="content">
+                <p class="instructions">Haz clic en los nodos para expandir/colapsar el árbol de decisión:</p>
+                <div id="tree-visualization"></div>
+                <div class="controls">
+                    <button id="reset-tree" class="btn">Reiniciar Árbol</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="card ejemplo">
+            <h2>Implementación en código</h2>
+            <div class="content">
+                <div class="code-tabs">
+                    <div class="tab-buttons">
+                        <button class="tab-btn active" data-tab="python">Python</button>
+
+                    </div>
+
+                    <div class="tab-content active" id="python-tab">
+                        <pre><code class="language-python"># Ejemplo en Python (con sklearn)
+from sklearn.datasets import load_iris
+from sklearn.tree import DecisionTreeClassifier
+from sklearn import tree
+import matplotlib.pyplot as plt
+
+X, y = load_iris(return_X_y=True)
+clf = DecisionTreeClassifier(max_depth=3)
+clf.fit(X, y)
+
+tree.plot_tree(clf)
+    </code></pre>
+                        <div class="code-explanation">
+                            <div class="explanation-header">
+                                <h3>¿Qué hace este código paso a paso?</h3>
+                            </div>
+
+                            <div class="explanation-grid">
+
+                                <!-- Paso 1 -->
+                                <div class="code-step">
+                                    <div class="step-header">
+                                        <span class="step-number">1</span>
+                                        <h4>Importar las herramientas</h4>
+                                    </div>
+                                    <div class="step-content">
+                                        <p>Antes de hacer cualquier cosa, necesitamos cargar algunas piezas clave:</p>
+                                        <ul class="icon-list">
+                                            <li><strong>load_iris</strong> – Un conjunto de
+                                                datos con medidas de flores.</li>
+                                            <li><strong>DecisionTreeClassifier</strong> –
+                                                El modelo que crea el árbol.</li>
+                                            <li><strong>tree</strong> – Para visualizar el
+                                                árbol entrenado.</li>
+                                            <li><strong>matplotlib.pyplot</strong> –
+                                                Herramienta para dibujar gráficos.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="code-step">
+                                    <div class="step-header">
+                                        <span class="step-number">2</span>
+                                        <h4>Cargar los datos</h4>
+                                    </div>
+                                    <div class="step-content">
+                                        <p>Utilizamos un conjunto de datos muy conocido llamado <strong>Iris</strong>,
+                                            que incluye información sobre varias flores. Este conjunto se divide en dos
+                                            partes:</p>
+
+                                        <div class="data-cards">
+                                            <div class="data-card">
+                                                <div class="card-label">🔢 Datos de entrada (X)</div>
+                                                <div class="card-value">Son las medidas físicas de cada flor: largo y
+                                                    ancho de pétalos y sépalos.</div>
+                                            </div>
+                                            <div class="data-card">
+                                                <div class="card-label">🏷️ Resultado esperado (y)</div>
+                                                <div class="card-value">Es el tipo de flor al que pertenecen esas
+                                                    medidas: Setosa, Versicolor o Virginica.</div>
+                                            </div>
+                                        </div>
+
+                                        <p>Podemos imaginarlo como una tabla donde cada fila representa una flor:</p>
+
+                                        <div class="table-example">
+                                            <table>
+                                                <thead>
+                                                    <tr>
+                                                        <th>Pétalo largo</th>
+                                                        <th>Pétalo ancho</th>
+                                                        <th>Sépalo largo</th>
+                                                        <th>Sépalo ancho</th>
+                                                        <th>Tipo de flor</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>1.4</td>
+                                                        <td>0.2</td>
+                                                        <td>5.1</td>
+                                                        <td>3.5</td>
+                                                        <td>Setosa</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>4.7</td>
+                                                        <td>1.4</td>
+                                                        <td>7.0</td>
+                                                        <td>3.2</td>
+                                                        <td>Virginica</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        <p>Este conjunto de datos es como el "material de estudio" del árbol. A partir
+                                            de estos ejemplos, podrá aprender a reconocer el tipo de flor en casos
+                                            nuevos.</p>
+                                    </div>
+                                </div>
+
+
+                                <!-- Paso 3 -->
+                                <div class="code-step">
+                                    <div class="step-header">
+                                        <span class="step-number">3</span>
+                                        <h4>Entrenar el árbol</h4>
+                                    </div>
+                                    <div class="step-content">
+                                        <p>Ahora le decimos al programa que queremos construir un árbol de decisión:</p>
+
+                                        <pre
+                                            class="code-line"><code class="language-python">clf = DecisionTreeClassifier(max_depth=3)</code></pre>
+                                        <p>Con esta línea, creamos un árbol que como máximo hará 3 preguntas antes de
+                                            decidir.</p>
+
+                                        <pre class="code-line"><code class="language-python">clf.fit(X, y)</code></pre>
+                                        <p>Aquí es donde ocurre el "entrenamiento". Le damos los datos de entrada
+                                            (<strong>X</strong>) y los resultados esperados (<strong>y</strong>), y el
+                                            árbol aprende las reglas necesarias para clasificar nuevas flores.</p>
+                                    </div>
+                                </div>
+
+
+                                <div class="code-step">
+                                    <div class="step-header">
+                                        <span class="step-number">4</span>
+                                        <h4>Mostrar el árbol</h4>
+                                    </div>
+                                    <div class="step-content">
+                                        <p>Ya con el árbol entrenado, queremos ver cómo toma decisiones. Para eso usamos
+                                            esta línea:</p>
+
+                                        <pre
+                                            class="code-line"><code class="language-python">tree.plot_tree(clf)</code></pre>
+
+                                        <p>Este comando utiliza la librería <strong>matplotlib</strong> para dibujar el
+                                            árbol de decisión completo en forma de gráfico.</p>
+
+                                        <p>Allí podremos ver, de manera visual:</p>
+                                        <ul class="icon-list">
+                                            <li> <strong>Las preguntas que hace el árbol</strong> (por ejemplo, “¿el
+                                                pétalo mide menos de 2.5 cm?”)</li>
+                                            <li> <strong>Las bifurcaciones</strong>, según las respuestas “sí” o “no”
+                                            </li>
+                                            <li> <strong>Las clasificaciones finales</strong> en cada hoja (Setosa,
+                                                Versicolor o Virginica)</li>
+                                        </ul>
+
+                                        <p>Es como ver un mapa del razonamiento que el modelo aprendió.</p>
+
+                                    </div>
+                                </div>
+
+
+                                <!-- Analogía final -->
+                                <div class="analogy">
+                                    <div class="analogy-icon">🧠</div>
+                                    <div class="analogy-content">
+                                        <h4>¿Cómo lo podemos imaginar?</h4>
+                                        <p>El modelo actúa como un botánico novato que observa las flores y se hace
+                                            preguntas simples para clasificarlas. Cada rama del árbol es una decisión
+                                            basada en medidas reales.</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+        </section>
+        <section class="card criterios">
+            <h2><span class="icon">📝</span> Criterios para Dividir Nodos</h2>
+            <div class="content">
+                Al crear un árbol de decisión, elegimos en cada paso qué característica usar para dividir los datos. Los
+                algoritmos usan fórmulas para medir qué división es mejor. Aquí te presentamos las más comunes.
+
+                <!-- Definiciones básicas -->
+                <div class="glosario-conceptos">
+                    <h4>¿Te suenan raros estos términos? Pasa el mouse para ver qué significan:</h4>
+                    <ul>
+                        <li><span class="tooltip"
+                                data-tooltip="Mide el desorden o mezcla en un grupo. Cuanto más mezclado, más alta la entropía."><strong>Entropía
+                                </strong></span></li>
+                        <li><span class="tooltip"
+                                data-tooltip="Cuánto se reduce la entropía al dividir los datos. Más orden después de dividir = mayor ganancia."><strong>Ganancia
+                                    de información</strong></span></li>
+                        <li><span class="tooltip"
+                                data-tooltip="Mide cuán puro es un grupo. Si todos los elementos son del mismo tipo, el índice es 0."><strong>Índice
+                                    Gini</strong></span></li>
+                        <li><span class="tooltip"
+                                data-tooltip="Compara los datos observados con los esperados. Se usa para detectar relaciones entre variables."><strong>Chi-cuadrado
+                                </strong></span></li>
+                    </ul>
+                </div>
+
+                <div class="algoritmos-grid">
+                    <!-- Algoritmo ID3 -->
+                    <div class="algoritmo-card">
+                        <div class="algoritmo-header">
+                            <h3>ID3 (Iterative Dichotomiser 3)</h3>
+                            <div class="algoritmo-tag">Ganancia de Información</div>
+                        </div>
+                        <div class="algoritmo-content">
+                            <p>Este algoritmo mide cuán desordenados están los datos (entropía) y elige la
+                                característica que más ayuda a organizarlos. Cuanto más ordenado queda el grupo tras la
+                                división, mayor es la ganancia de información.</p>
+
+                            <ul class="algoritmo-pros-cons">
+                                <li class="pro">✅ Bueno para datos categóricos (como colores, tipos, etc.)</li>
+                                <li class="con">❌ No funciona directamente con números (como edades o precios)</li>
+                                <li class="con">❌ Puede crear árboles muy complejos si no se controla</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Algoritmo C4.5 -->
+                    <div class="algoritmo-card">
+                        <div class="algoritmo-header">
+                            <h3>C4.5 (Mejora de ID3)</h3>
+                            <div class="algoritmo-tag">Ratio de Ganancia</div>
+                        </div>
+                        <div class="algoritmo-content">
+                            <p>Este algoritmo mejora a ID3 para evitar errores comunes. Usa una medida llamada
+                                <strong>ratio de ganancia</strong>, que ajusta la ganancia de información cuando hay
+                                atributos con muchos valores distintos.
+                            </p>
+
+                            <ul class="algoritmo-pros-cons">
+                                <li class="pro">✅ Funciona con datos numéricos y categóricos</li>
+                                <li class="pro">✅ Usa técnicas de "poda" para evitar árboles muy complejos</li>
+                                <li class="con">❌ Más lento al calcular que ID3</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Algoritmo CART -->
+                    <div class="algoritmo-card">
+                        <div class="algoritmo-header">
+                            <h3>CART (Árboles de Clasificación y Regresión)</h3>
+                            <div class="algoritmo-tag">Índice Gini</div>
+                        </div>
+                        <div class="algoritmo-content">
+                            <p>Utiliza el <strong>índice Gini</strong> para medir cuán mezclado está un grupo. Elige
+                                divisiones que generen grupos más "puros". A diferencia de los otros, puede hacer
+                                árboles tanto para clasificar como para predecir valores numéricos.</p>
+
+                            <ul class="algoritmo-pros-cons">
+                                <li class="pro">✅ Rápido y eficiente en muchos casos</li>
+                                <li class="pro">✅ Sirve para clasificación y regresión</li>
+                                <li class="con">❌ A veces produce árboles muy desbalanceados</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Algoritmo CHAID -->
+                    <div class="algoritmo-card">
+                        <div class="algoritmo-header">
+                            <h3>CHAID (Chi-squared Automatic Interaction Detector)</h3>
+                            <div class="algoritmo-tag">Pruebas Chi-cuadrado</div>
+                        </div>
+                        <div class="algoritmo-content">
+                            <p>Este algoritmo usa una prueba estadística (chi-cuadrado) para ver si hay relación entre
+                                una característica y la clase objetivo. Si encuentra una relación fuerte, divide los
+                                datos por esa característica.</p>
+                            <ul class="algoritmo-pros-cons">
+                                <li class="pro">✅ Ideal para variables categóricas</li>
+                                <li class="pro">✅ Ofrece interpretaciones estadísticas claras</li>
+                                <li class="con">❌ Requiere muchos datos para ser fiable</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Comparativa -->
+                <div class="comparativa">
+                    <h3>Comparativa Rápida</h3>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Algoritmo</th>
+                                    <th>Criterio</th>
+                                    <th>Atributos</th>
+                                    <th>Uso Principal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>ID3</td>
+                                    <td>Ganancia de Información</td>
+                                    <td>Solo categóricos</td>
+                                    <td>Clasificación</td>
+                                </tr>
+                                <tr>
+                                    <td>C4.5</td>
+                                    <td>Ratio de Ganancia</td>
+                                    <td>Categóricos y numéricos</td>
+                                    <td>Clasificación</td>
+                                </tr>
+                                <tr>
+                                    <td>CART</td>
+                                    <td>Índice Gini</td>
+                                    <td>Categóricos y numéricos</td>
+                                    <td>Clasificación y Regresión</td>
+                                </tr>
+                                <tr>
+                                    <td>CHAID</td>
+                                    <td>Chi-cuadrado</td>
+                                    <td>Solo categóricos</td>
+                                    <td>Clasificación</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="section-footer">
+        <div class="container">
+            <nav>
+                <a href="/" class="btn outline">← Volver a la Portada</a>
+                <a href="/rl.html" class="btn">Reinforcement Learning →</a>
+            </nav>
+        </div>
+    </footer>
+</body>
+
+</html>
